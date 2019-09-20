@@ -75,9 +75,9 @@ export class StarsService {
   public getEstrellaXDataBase(idx:string){
     return this.http.get(this.starListUrl+idx).pipe(
     map( res => {
-    let equipo:Equipo = res as Equipo;
+    let star:Star = res as Star;
     console.log(res);
-    return equipo;
+    return star;
     }));
     }
 

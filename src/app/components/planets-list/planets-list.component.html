@@ -1,3 +1,48 @@
-<p>
-  planets-list works!
-</p>
+<h1>Planetas</h1>
+<hr>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <!-- Al eplanet dentro de un router-outlet hay que añadir un "/" para que salga fuera y
+acceda correctamente a la ruta que queremos ir
+ -->
+        <button [routerLink]="['/planetsadmin', 'nuevo']" type="button" class="btn btn-outline-primary" type="button" name="button">
+ Nuevo Planeta
+ </button>
+    </div>
+</div>
+<!--<app-loading *ngIf="loading"></app-loading>
+<div *ngIf="!loading" class="row animated fadeIn">-->
+<div class="col-md-12">
+    <div class="table-responsive">
+        <table width="100%" class="table table-sm table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="width: 10%;">#</th>
+                    <th style="width: 15%;">Planeta</th>
+                    <th style="width: 15%;">Tamaño</th>
+                    <th style="width: 15%;">Estrella</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let planet of planets; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ planet.name }}</td>
+                    <td>{{ planet.size }}</td>
+                    <td>{{ planet.star.name }}</td>
+
+                    <td class="text-right w120">
+                        <button [routerLink]="['/planetsadmin', planet.id]" type=" button " class="btn btn-outline-success " type="button " name="button ">
+ <i class="fas fa-edit "></i> Editar
+ </button>&nbsp;&nbsp;
+                        <button (click)="delete(planet.id) " type="button " class="btn btn-outline-danger " type="button " name="button ">
+ <i class="fas fa-trash-alt "></i> Eliminar
+ </button>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<!--</div>-->

@@ -1,3 +1,30 @@
-<p>
-  planets-admin works!
-</p>
+<h3>Planeta <small>{{ planeta.name }}</small></h3>
+<button class="btn btn-outline-danger" [routerLink]="['/planetlist']">Regresar</button>
+<button class="btn btn-outline-success" (click)="addNew(forma)">Nuevo Planeta</button>
+<hr>
+<div class="row animated fadeIn fast">
+    <div class="col-md-12">
+        <form (ngSubmit)="save()" #forma="ngForm">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" [(ngModel)]="planeta.name" name="nombre" class="form-control" required minlength="4" placeholder="Planeta">
+            </div>
+            <div class="form-group">
+                <label for="tamaño">Tamaño</label>
+                <input id="tamaño" [(ngModel)]="planeta.size" name="tamaño" class="form-control" required minlength="4" placeholder="Tamaño">
+            </div>
+            <div class="form-group">
+                <label for="estrella">Estrella</label>
+                <select class="form-control" id="estrella" name="estrella" [(ngModel)]="planeta.star.id">
+                    <option *ngFor="let star of stars" value="{{star.id}}">{{star.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-primary">Guardar Planeta</button>
+
+                <span style="text-align: right; width: 500; color: blue; font-weight:
+bold">&nbsp;&nbsp;&nbsp; {{ resultadoOperacion }}</span>
+            </div>
+        </form>
+    </div>
+</div>
