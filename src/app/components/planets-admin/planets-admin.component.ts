@@ -15,9 +15,11 @@ export class PlanetsAdminComponent implements OnInit {
     name: 'Nombre de la Planeta',
     size: 'Ejemplo: 400',
     star: {
-      id: "5"
+      id: "5",
+      name: "",
+      density: "",
     }
-  };
+ };
   new = false;
   idPlaneta: string;
   resultadoOperacion = '';
