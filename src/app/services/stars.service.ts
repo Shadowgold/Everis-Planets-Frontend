@@ -6,8 +6,10 @@ import { HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
+    'Access-Control-Allow-Origin':'*',
     'Content-Type':  'application/json',
     'Authorization': 'my-auth-token'
+    
   })
 };
 
@@ -20,7 +22,7 @@ export class StarsService {
 
   
   starListUrl = 'http://localhost:9000/api/v1/stars/';
-  starListUrl1 = 'http://localhost:9000/api/v1/stars/1';
+  starListUrl1 = 'http://localhost:9000/api/v1/stars/';
   constructor(public http: HttpClient) {
   }
 
@@ -74,8 +76,9 @@ export class StarsService {
   }
 
   public deleteEstrella(idEstrella: string) {
-    const starListUrl = `${this.starListUrl}/${1}`;
-    return this.http.delete<Star>(this.starListUrl1, httpOptions).pipe(map( res => res));
+    const starListUrl = `${this.starListUrl}${idEstrella}`;
+    console.log(starListUrl);
+    return this.http.delete<Star>(this.starListUrl, httpOptions).pipe(map( res => res));
   }
 
   deleteEstrella1(idEstrella: string){
