@@ -3,16 +3,16 @@ import { NgForm } from '@angular/forms';
 import { StarsService } from '../../services/stars.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Star } from '../../interfaces/star';
-
+declare let bootstrapValidate: any;
 @Component({
   selector: 'app-stars-admin',
   templateUrl: './stars-admin.component.html'
 })
 export class StarsAdminComponent implements OnInit {
   estrella: Star = {
-    id: '0',
-    name: 'Nombre de la Estrella',
-    density: 'Ejemplo: 400'
+    id: '',
+    name: '',
+    density: ''
   };
   new = false;
   idEstrella: string;
@@ -34,7 +34,11 @@ export class StarsAdminComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //bootstrapValidate('#name', 'alphanum:El nombre de la estrella debe ser Alfanumérico');
+    bootstrapValidate('#densidad', 'integer:Ingrese un Entero por favor'),
+    bootstrapValidate('#nombre', 'alphanum:El nombre debe ser alfanumérico');
+  }
 
   save() {
     if (this.idEstrella === 'nuevo') {
@@ -43,7 +47,7 @@ export class StarsAdminComponent implements OnInit {
         data => {
           if (data && data.id) {
             this.resultadoOperacion = 'Operación finalizada con exito';
-            this.router.navigate(['/admin', data.id]);
+            this.router.navigate(['/starlist']);
           } else {
             this.resultadoOperacion =
               'Error en la operación, verifique los datos';
@@ -58,6 +62,7 @@ export class StarsAdminComponent implements OnInit {
           if (data && data.id) {
             this.resultadoOperacion = 'Operación finalizada con exito';
             console.log(data);
+            this.router.navigate(['/starlist']);
           } else {
             this.resultadoOperacion =
               'Error en la operación, verifique los datos';
@@ -68,9 +73,11 @@ export class StarsAdminComponent implements OnInit {
     }
   }
   addNew(formu: NgForm) {
-    this.router.navigate(['/admin', 'nuevo']);
+    this.router.navigate(['/starsadmin', 'nuevo']);
     formu.reset({
-      pais: 'Espania'
+      
     });
   }
+
+  
 }

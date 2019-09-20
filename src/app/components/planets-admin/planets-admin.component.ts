@@ -5,17 +5,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Planet } from '../../interfaces/planet';
 import { StarsService } from '../../services/stars.service';
 
+declare let bootstrapValidate: any;
 @Component({
   selector: 'app-planets-admin',
   templateUrl: './planets-admin.component.html'
 })
 export class PlanetsAdminComponent implements OnInit {
   planeta: Planet = {
-    id: '0',
-    name: 'Nombre de la Planeta',
-    size: 'Ejemplo: 400',
+    id: '',
+    name: '',
+    size: '',
     star: {
-      id: "5",
+      id: "",
       name: "",
       density: "",
     }
@@ -24,6 +25,7 @@ export class PlanetsAdminComponent implements OnInit {
   idPlaneta: string;
   resultadoOperacion = '';
   stars: any[] = [];
+  
   constructor(
     private planetsService: PlanetsService,
     private starsService: StarsService,
@@ -51,6 +53,8 @@ export class PlanetsAdminComponent implements OnInit {
         this.stars.push(data[eq]);
       }
     });
+    bootstrapValidate('#tamaño', 'integer:Ingrese un Entero por favor'),
+    bootstrapValidate('#nombre', 'alphanum:El nombre debe ser alfanumérico');
   }
 
   save() {
@@ -60,7 +64,7 @@ export class PlanetsAdminComponent implements OnInit {
         data => {
           if (data && data.id) {
             this.resultadoOperacion = 'Operación finalizada con exito';
-            this.router.navigate(['/admin', data.id]);
+            this.router.navigate(['/planetlist']);
           } else {
             this.resultadoOperacion =
               'Error en la operación, verifique los datos';
@@ -75,6 +79,7 @@ export class PlanetsAdminComponent implements OnInit {
           if (data && data.id) {
             this.resultadoOperacion = 'Operación finalizada con exito';
             console.log(data);
+            this.router.navigate(['/planetlist']);
           } else {
             this.resultadoOperacion =
               'Error en la operación, verifique los datos';
@@ -90,5 +95,7 @@ export class PlanetsAdminComponent implements OnInit {
       pais: 'Espania'
     });
   }
+
+  
 }
 
