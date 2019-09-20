@@ -1,3 +1,25 @@
-<p>
-  stars-admin works!
-</p>
+<h3>Estrella <small>{{ estrella.name }}</small></h3>
+<button class="btn btn-outline-danger" [routerLink]="['/lista']">Regresar</button>
+<button class="btn btn-outline-success" (click)="addNew(forma)">Nueva Estrella</button>
+<hr>
+<div class="row animated fadeIn fast">
+    <div class="col-md-12">
+        <form (ngSubmit)="save()" #forma="ngForm">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" [(ngModel)]="estrella.name" name="nombre" class="form-control" required minlength="4" placeholder="Estrella">
+            </div>
+            <div class="form-group">
+                <label for="estadio">Densidad</label>
+                <input id="estadio" [(ngModel)]="estrella.density" name="densidad" class="form-control" required minlength="4" placeholder="Densidad">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-primary">Guardar Estrella</button>
+
+                <span style="text-align: right; width: 500; color: blue; font-weight:
+bold">&nbsp;&nbsp;&nbsp; {{ resultadoOperacion }}</span>
+            </div>
+        </form>
+    </div>
+</div>

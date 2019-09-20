@@ -5,7 +5,7 @@
         <!-- Al estar dentro de un router-outlet hay que añadir un "/" para que salga fuera y
 acceda correctamente a la ruta que queremos ir
  -->
-        <button type="button" class="btn btn-outline-primary" type="button" name="button">
+        <button [routerLink]="['/admin', 'nuevo']" type="button" class="btn btn-outline-primary" type="button" name="button">
  Nueva Estrella
  </button>
     </div>
@@ -31,11 +31,11 @@ acceda correctamente a la ruta que queremos ir
                     <td>{{ star.density }}</td>
 
                     <td class="text-right w120">
-                        <button type="button" class="btn btn-outline-success" type="button" name="button">
- <i class="fas fa-edit"></i> Editar
+                        <button [routerLink]="['/admin', star.id]" type=" button " class="btn btn-outline-success " type="button " name="button ">
+ <i class="fas fa-edit "></i> Editar
  </button>&nbsp;&nbsp;
-                        <button (click)="delete(star.id)" type="button" class="btn btn-outlinedanger" type="button" name="button">
- <i class="fas fa-trash-alt"></i> Eliminar
+                        <button (click)="delete(star.id) " type="button " class="btn btn-outline-danger " type="button " name="button ">
+ <i class="fas fa-trash-alt "></i> Eliminar
  </button>
 
             </tbody>

@@ -6,10 +6,8 @@ import { HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Access-Control-Allow-Origin':'*',
-    'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token'
-    
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type':  'application/json'
   })
 };
 
@@ -22,7 +20,7 @@ export class StarsService {
 
   
   starListUrl = 'http://localhost:9000/api/v1/stars/';
-  starListUrl1 = 'http://localhost:9000/api/v1/stars/';
+  
   constructor(public http: HttpClient) {
   }
 
@@ -56,42 +54,32 @@ export class StarsService {
   }
 
   public newEstrella(estrellaNueva: Star) {
-    return this.http.post<Star>(this.starListUrl, null, 
-      {params: new HttpParams().set('name', estrellaNueva.name)
-      .set('density',estrellaNueva.density)})
-      .pipe(map(nuevaEstrella =>{
-        console.log(nuevaEstrella.name);
-        return nuevaEstrella;
-      }));
+    return this.http.post<Star>(this.starListUrl, estrellaNueva,
+      httpOptions).pipe(map( res => res));
+
   }
 
   public updateEstrella(estrellaUpdate: Star) {
-    return this.http.put<Star>(this.starListUrl, null, 
-      {params: new HttpParams().set('name', estrellaUpdate.name)
-      .set('density',estrellaUpdate.density)})
-      .pipe(map(updateEstrella =>{
-        console.log(updateEstrella.name);
-        return updateEstrella;
-      }));
+    const starListUrl = `${this.starListUrl}${+estrellaUpdate.id}`;
+    return this.http.put<Star>(starListUrl, estrellaUpdate,
+      httpOptions).pipe(map( res => res));
   }
 
   public deleteEstrella(idEstrella: string) {
-    const starListUrl = `${this.starListUrl}${idEstrella}`;
+    const starListUrl = `${this.starListUrl}${+idEstrella}`;
     console.log(starListUrl);
-    return this.http.delete<Star>(this.starListUrl, httpOptions).pipe(map( res => res));
+    return this.http.delete(starListUrl, httpOptions).pipe(map( res => res));
   }
 
-  deleteEstrella1(idEstrella: string){
-    
-    return this.http.delete( this.starListUrl,  {params: new
-   HttpParams().set('id', idEstrella)})
-    .pipe(
+
+  public getEstrellaXDataBase(idx:string){
+    return this.http.get(this.starListUrl+idx).pipe(
     map( res => {
+    let equipo:Equipo = res as Equipo;
     console.log(res);
-    return res;
+    return equipo;
     }));
     }
-   
 
   getEstrellassFromDataBase(){
     return this.http.get(this.starListUrl).pipe(
